@@ -1,47 +1,239 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="id">
 
-    <form method="POST" action="{{ route('login') }}">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Login - CurhaTI</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+    font-family:'Outfit',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#F8FAFC;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.login-card{
+
+    width:100%;
+    max-width:420px;
+
+    background:white;
+
+    border:none;
+    border-radius:24px;
+
+    padding:35px;
+
+    box-shadow:
+        0 10px 30px rgba(15,23,42,.08);
+}
+
+.logo{
+
+    text-align:center;
+
+    font-size:34px;
+    font-weight:800;
+
+    color:#0F172A;
+
+    margin-bottom:8px;
+}
+
+.logo span{
+    color:#2563EB;
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#64748B;
+
+    font-size:14px;
+
+    margin-bottom:28px;
+}
+
+.form-label{
+
+    font-size:14px;
+    font-weight:600;
+
+    color:#334155;
+}
+
+.form-control{
+
+    height:52px;
+
+    border-radius:14px;
+
+    border:1px solid #CBD5E1;
+}
+
+.form-control:focus{
+
+    box-shadow:none;
+
+    border-color:#2563EB;
+}
+
+.btn-login{
+
+    height:52px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#2563EB;
+
+    color:white;
+
+    font-weight:600;
+
+    width:100%;
+}
+
+.btn-login:hover{
+
+    background:#1D4ED8;
+}
+
+.login-note{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    color:#64748B;
+
+    line-height:1.7;
+}
+
+.alert-danger{
+
+    border:none;
+
+    border-radius:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-card">
+
+    <div class="logo">
+
+        CURHA<span>TI</span>
+
+    </div>
+
+    <div class="subtitle">
+
+        Platform aspirasi anonim mahasiswa Teknologi Informasi Unimus
+
+    </div>
+
+    @if($errors->any())
+
+    <div class="alert alert-danger">
+
+        NIM atau password yang kamu masukkan tidak sesuai.
+
+    </div>
+
+    @endif
+
+    <form method="POST"
+          action="{{ route('login') }}">
+
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <div class="mb-3">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <label class="form-label">
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+                NIM
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
             </label>
+
+            <input
+            type="text"
+            name="nim"
+            value="{{ old('nim') }}"
+            class="form-control"
+            placeholder="Contoh: 13242420021"
+            required
+            autofocus>
+
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+        <div class="mb-3">
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <label class="form-label">
+
+                Password
+
+            </label>
+
+            <input
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="Masukkan password"
+            required>
+
         </div>
+
+        <button
+        type="submit"
+        class="btn-login">
+
+            Masuk
+
+        </button>
+
     </form>
-</x-guest-layout>
+
+    <div class="login-note">
+
+        Hanya untuk mahasiswa <b>Teknologi Informasi Universitas Muhammadiyah Semarang</b> yang telah terdaftar oleh admin.
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
